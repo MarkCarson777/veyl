@@ -1,12 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
+import { supabase } from "./lib/supabase";
 
 function App() {
   const [count, setCount] = useState(0);
+  const [producers, setProducers] = useState([]);
 
+  useEffect(() => {
+    async function fetchProducers() {
+      const { data, error } = await supabase.from("producers").select("*");
+      if (error) console.error(error);
+      else setProducers(data);
+    }
+
+    fetchProducers();
+  }, []);
+
+  console.log("producers", producers);
+  console.log("url", import.meta.env.VITE_SUPABASE_URL);
+  console.log("key", import.meta.env.VITE_SUPABASE_ANON_KEY);
   return (
     <>
       <section id="center">
