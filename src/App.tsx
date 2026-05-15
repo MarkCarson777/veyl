@@ -3,11 +3,14 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "./assets/vite.svg";
 import heroImg from "./assets/hero.png";
 import "./App.css";
+import type { Tables } from "./lib/database.types";
 import { supabase } from "./lib/supabase";
+
+type Producer = Tables<"producers">;
 
 function App() {
   const [count, setCount] = useState(0);
-  const [producers, setProducers] = useState([]);
+  const [producers, setProducers] = useState<Producer[]>([]);
 
   useEffect(() => {
     async function fetchProducers() {
@@ -20,8 +23,6 @@ function App() {
   }, []);
 
   console.log("producers", producers);
-  console.log("url", import.meta.env.VITE_SUPABASE_URL);
-  console.log("key", import.meta.env.VITE_SUPABASE_ANON_KEY);
   return (
     <>
       <section id="center">
