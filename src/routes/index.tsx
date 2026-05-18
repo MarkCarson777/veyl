@@ -1,11 +1,15 @@
+import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import "./App.css";
-import type { Tables } from "./lib/database.types";
-import { supabase } from "./lib/supabase";
+import type { Tables } from "../lib/database.types";
+import { supabase } from "../lib/supabase";
 
 type Producer = Tables<"producers">;
 
-function App() {
+export const Route = createFileRoute("/")({
+  component: RouteComponent,
+});
+
+function RouteComponent() {
   const [producers, setProducers] = useState<Producer[]>([]);
 
   useEffect(() => {
@@ -19,11 +23,6 @@ function App() {
   }, []);
 
   console.log("producers", producers);
-  return (
-    <div>
-      <h1 className="text-red-500">Veyl</h1>
-    </div>
-  );
-}
 
-export default App;
+  return <div className="text-red-500">Veyl</div>;
+}
